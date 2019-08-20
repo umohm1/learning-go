@@ -5,14 +5,17 @@ import (
 	"fmt"
 	// implements clients and servers
 	"net/http"
+	"github.com/gorilla/mux"
 )
 
 func main() {
-	// method accepts path and function
-	http.HandleFunc("/", handler)
+	// Declare a new router
+	r := mux.NewRouter()
+
+	r.HandleFunc("/hello", handler).Methods("GET")
 
 	// listen and serve on port 8080
-	http.ListenAndServe(":8080", nil)
+	http.ListenAndServe(":8080", r)
 
 }
 
