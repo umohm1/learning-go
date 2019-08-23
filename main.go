@@ -8,13 +8,16 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func main() {
-	// Declare a new router
+// create a new router and return it outside of main func
+func newRouter() *mux.Router {
 	r := mux.NewRouter()
-
 	r.HandleFunc("/hello", handler).Methods("GET")
+	return r
+}
 
+func main() {
 	// listen and serve on port 8080
+	r := newRouter()
 	http.ListenAndServe(":8080", r)
 
 }
