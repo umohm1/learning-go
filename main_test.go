@@ -101,3 +101,27 @@ func TestHandler(t *testing.T) {
 			t.Errorf("Response should be %s, got %s", expected, respString)
 		}
 	}
+
+	func TestStaticFileServer(t *testing.T) {
+		r := newRouter()
+		mockServer := httptest.NewServer(r)
+
+		// Hit `GET /assets/`` route to get the index.html file response`
+		resp, err := http.Get(mockServer.URL + "/assets/")
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		// Want status to be 200
+		if resp.StatusCode != http.StatusOK {
+			t.Errorf("Status should be 200, got %d", resp.StatusCode)
+		}
+
+		// test content-type header to ensure html file has been serve 
+		contentType := resp.Header.Get("Content-Type")
+		expectedContentType := "text/html; charset=utf-8"
+
+		if expectedContentType != contentType {
+			t.Errorf("Wrong content type, expected %s, got %s", expectedContentType, contentType)
+		}
+	}
