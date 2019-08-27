@@ -34,7 +34,7 @@ func TestHandler(t *testing.T) {
 
 	func TestRouter(t *testing.T) {
 		// Instantiate the router using the constructor function
-		// efined previously
+		// defined previously
 		r := newRouter()
 
 		// Create a new server using the "httptest" libraries `NewServer` method
