@@ -1,3 +1,11 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+)
+
 type Bird struct {
 	Species string `json:"species"`
 	Description string `json:"description"`
@@ -5,7 +13,7 @@ type Bird struct {
 
 var birds []Bird 
 
-func getBirdHandler(w http.ResponseWriter, r *http.Request)
+func getBirdHandler(w http.ResponseWriter, r *http.Request) {
 // convert the birds var into json 
 birstListBytes, err := json.Marshal(birds)
 

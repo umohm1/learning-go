@@ -1,7 +1,15 @@
+package main
+
+import (
+	"encoding/json"
+	"net/http"
+	"net/http/httptest"
+	"testing"
+)
+
 func TestGetBirdsHandler(t *testing.T) {
-		birds = []Bird{
-				{"sparrow", "Small bird"}}
-	}
+	birds = []Bird{
+		{"sparrow", "Small bird"}}
 
 	req, err := http.NewRequest("GET", "", nil)
 
@@ -16,7 +24,7 @@ func TestGetBirdsHandler(t *testing.T) {
 
 	if status := recorder.Code; status != http.StatusOK {
 		t.Errorf("handler returned wrong status code: got %v want %v",
-		status, http.StatusOK)
+			status, http.StatusOK)
 	}
 
 	expected := Bird{"sparrow", "Small bird"}
@@ -29,7 +37,7 @@ func TestGetBirdsHandler(t *testing.T) {
 
 	actual := b[0]
 
-	if actual != expected
+	if actual != expected {
 		t.Errorf("handler returned unexpected body: got %v want %v", actual, expected)
 	}
 }
