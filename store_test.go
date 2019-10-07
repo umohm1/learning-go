@@ -3,6 +3,9 @@ package main
 import (
 	"database/sql"
 	"testing"
+	_ "github.com/lib/pq"
+	"github.com/stretchr/testify/suite"
+
 )
 
 // The "testify/suite" package is used to make the test suite
