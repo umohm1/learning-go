@@ -6,12 +6,21 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"strconv"
 	"testing"
 )
 
 func TestGetBirdsHandler(t *testing.T) {
-	birds = []Bird{
-		{"sparrow", "Small bird"}}
+// Initialize the mock store
+	mockStore := InitMockStore()
+
+	/* Define the data that we want to return when the mocks `GetBirds` method is
+	called
+	Also, we expect it to be called only once
+	*/
+	mockStore.On("GetBirds").Return([]*Bird{
+		{"sparrow", "A small harmless bird"}
+	}, nil).Once()
 
 	req, err := http.NewRequest("GET", "", nil)
 
@@ -46,9 +55,13 @@ func TestGetBirdsHandler(t *testing.T) {
 
 func TestCreateBirdsHandler(t *testing.T) {
 
-	birds = []Bird{
-		{"sparrow", "Small bird"},
-	}
+	mockStore := InitMockStore()
+	/*
+	 Similarly, we define our expectations for th `CreateBird` method.
+	 We expect the first argument to the method to be the bird struct
+	 defined below, and tell the mock to return a `nil` error
+	*/
+	mockStore.On("CreateBird", &Bird{"eagle", "A bird of prey"}).Return(nil)
 
 	form := newCreateBirdForm()
 	req, err := http.NewRequest("POST", "", bytes.NewBufferString(form.Encode()))
